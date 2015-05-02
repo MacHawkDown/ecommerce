@@ -11,6 +11,95 @@ CREATE TABLE `addresses` (
 	  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/* dummy user data */
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `admin` int(11) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* dummy categories */
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `name` varchar(255) DEFAULT NULL,
+	  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*dummy products */
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text,
+  `image` varchar(45) DEFAULT NULL,
+  `categories_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_products_categories1_idx` (`categories_id`),
+  CONSTRAINT `fk_products_categories1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*dummy order statuses */
+
+DROP TABLE IF EXISTS `order_statuses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_statuses` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `status_type` varchar(255) DEFAULT NULL,
+	  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/* dummy orders */
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `users_id` int(11) NOT NULL,
+	  `addresses_id` int(11) NOT NULL,
+	  `order_statuses_id` int(11) NOT NULL,
+	  PRIMARY KEY (`id`),
+	  KEY `fk_orders_users_idx` (`users_id`),
+	  KEY `fk_orders_addresses1_idx` (`addresses_id`),
+	  KEY `fk_orders_order_statuses1_idx` (`order_statuses_id`),
+	  CONSTRAINT `fk_orders_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	  CONSTRAINT `fk_orders_addresses1` FOREIGN KEY (`addresses_id`) REFERENCES `addresses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	  CONSTRAINT `fk_orders_order_statuses1` FOREIGN KEY (`order_statuses_id`) REFERENCES `order_statuses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `carts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `carts` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `orders_id` int(11) NOT NULL,
+	  `products_id` int(11) NOT NULL,
+	  `qty` int(11) DEFAULT NULL,
+	  `flag` tinyint(1) DEFAULT NULL,
+	  PRIMARY KEY (`id`),
+	  KEY `fk_carts_orders1_idx` (`orders_id`),
+	  KEY `fk_carts_products1_idx` (`products_id`),
+	  CONSTRAINT `fk_carts_orders1` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	  CONSTRAINT `fk_carts_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/*************************************************DUMMY DATA************************************/
+
 INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUES ("P.O. Box 271, 1609 Velit. Rd.","846-8406 Interdum St.","Minneapolis","MN","44385");
 INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUES ("2123 Est, Rd.","4245 Curabitur Avenue","Queanbeyan","NSW","421990");
 INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUES ("4326 Proin Rd.","9146 Magna. St.","Gaziantep","Gaz","2986");
@@ -111,21 +200,6 @@ INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUE
 INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUES ("P.O. Box 880, 2621 Semper Ave","9704 Odio Av.","Belfast","Ulster","40-277");
 INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUES ("8661 Dui, Rd.","5205 Pharetra Road","Kurnool","Andhra Pradesh","524761");
 INSERT INTO `addresses` (`address_1`,`address_2`,`city`,`state`,`zipcode`) VALUES ("Ap #311-3021 Est. St.","P.O. Box 662, 819 Congue, Street","Sarreguemines","LO","7142QF");
-
-/* dummy user data */
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `admin` int(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 
 INSERT INTO `users` (`first_name`,`last_name`,`admin`,`email`,`password`) VALUES ("Tiger","Underwood","2","Sed.nec.metus@Inlorem.ca","AXW16GYD3YL");
@@ -230,16 +304,6 @@ INSERT INTO `users` (`first_name`,`last_name`,`admin`,`email`,`password`) VALUES
 INSERT INTO `users` (`first_name`,`last_name`,`admin`,`email`,`password`) VALUES ("Craig","Maddox","1","magna@vulputatemaurissagittis.com","IJN16CWV5WE");
 
 
-/* dummy categories */
-DROP TABLE IF EXISTS `categories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `categories` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `name` varchar(255) DEFAULT NULL,
-	  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
 INSERT INTO `categories` (`name`) VALUES ("T-shirts");
 INSERT INTO `categories` (`name`) VALUES ("Beer");
 INSERT INTO `categories` (`name`) VALUES ("Movies");
@@ -252,383 +316,310 @@ INSERT INTO `categories` (`name`) VALUES ("Books");
 INSERT INTO `categories` (`name`) VALUES ("Kids");
 INSERT INTO `categories` (`name`) VALUES ("beverages");
 
-/*dummy products */
-DROP TABLE IF EXISTS `products`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text,
-  `image` varchar(45) DEFAULT NULL,
-  `categories_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_products_categories1_idx` (`categories_id`),
-  CONSTRAINT `fk_products_categories1` FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
-DROP TABLE `products`;
-
-CREATE TABLE `products` (
-	  `id` mediumint(8) unsigned NOT NULL auto_increment,
-	  `name` varchar(255) default NULL,
-	  `description` TEXT default NULL,
-	  `image` varchar(255) default NULL,
-	  `categories_id` varchar(255) default NULL,
-	  PRIMARY KEY (`id`)
-) AUTO_INCREMENT=1;
-
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Trazodone HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("LevothyroxineSodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Nasonex","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Doxycycline Hyclate","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem ipsum","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Naproxen","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Metformin HCl","Lorem ipsum","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Tramadol HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Nexium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Ciprofloxacin HCl","Lorem ipsum dolor","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Paroxetine HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gabapentin","Lorem ipsum dolor","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Folic Acid","Lorem ipsum dolor sit","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Omeprazole (Rx)","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amoxicillin Trihydrate/Potassium Clavulanate","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Crestor","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Cymbalta","Lorem ipsum","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Metformin HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Fluconazole","Lorem ipsum dolor sit","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Crestor","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lovaza","Lorem ipsum dolor sit","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Zolpidem Tartrate","Lorem","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril/Hydrochlorothiazide","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Plavix","Lorem ipsum dolor","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Azithromycin","Lorem ipsum","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Atenolol","Lorem","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Azithromycin","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Alprazolam","Lorem ipsum dolor sit","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Ranitidine HCl","Lorem ipsum","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Simvastatin","Lorem ipsum dolor","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Endocet","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Methylprednisolone","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Fluoxetine HCl","Lorem ipsum dolor","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Azithromycin","Lorem","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Advair Diskus","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Zolpidem Tartrate","Lorem","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gianvi","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","9");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Proair HFA","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Glyburide","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lipitor","Lorem ipsum dolor sit","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Digoxin","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Penicillin VK","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sertraline HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Diovan","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","9");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Trazodone HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gianvi","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Diovan HCT","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","9");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Spiriva Handihaler","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","9");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("LevothyroxineSodium","Lorem ipsum dolor","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Actos","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Levothyroxine Sodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Warfarin Sodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Loestrin 24 Fe","Lorem ipsum dolor","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lantus","Lorem","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Simvastatin","Lorem ipsum dolor","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Triamterene/Hydrochlorothiazide","Lorem","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Klor-Con M20","Lorem ipsum dolor","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("LevothyroxineSodium","Lorem ipsum dolor sit","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Oxycodone HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","9");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lidoderm","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gianvi","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Omeprazole (Rx)","Lorem ipsum","http://localhost/blah/blah","4");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Enalapril Maleate","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Vitamin D (Rx)","Lorem","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Tamsulosin HCl","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Crestor","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sertraline HCl","Lorem ipsum dolor","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Methylprednisolone","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Metformin HCl","Lorem ipsum","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Ibuprofen (Rx)","Lorem ipsum dolor sit","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Paroxetine HCl","Lorem ipsum dolor sit","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Alendronate Sodium","Lorem","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Cymbalta","Lorem ipsum","http://localhost/blah/blah","9");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor","http://localhost/blah/blah","3");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Alprazolam","Lorem ipsum dolor sit amet,","http://localhost/blah/blah","1");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Advair Diskus","Lorem","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Tamsulosin HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","10");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sertraline HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah","2");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Oxycontin","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","5");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Warfarin Sodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah","8");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah","7");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Simvastatin","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah","6");
-INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sulfamethoxazole/Trimethoprim","Lorem ipsum dolor sit","http://localhost/blah/blah","9");
-
-/*dummy order statuses */
-
-DROP TABLE IF EXISTS `order_statuses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order_statuses` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `status_type` varchar(255) DEFAULT NULL,
-	  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 INSERT INTO `order_statuses` (`status_type`) VALUES ("Cancelled");
 INSERT INTO `order_statuses` (`status_type`) VALUES ("Processing");
 INSERT INTO `order_statuses` (`status_type`) VALUES ("Packaging");
 INSERT INTO `order_statuses` (`status_type`) VALUES ("Shipped");
 
-/* dummy orders */
-DROP TABLE IF EXISTS `orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `orders` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `users_id` int(11) NOT NULL,
-	  `addresses_id` int(11) NOT NULL,
-	  `order_statuses_id` int(11) NOT NULL,
-	  PRIMARY KEY (`id`),
-	  KEY `fk_orders_users_idx` (`users_id`),
-	  KEY `fk_orders_addresses1_idx` (`addresses_id`),
-	  KEY `fk_orders_order_statuses1_idx` (`order_statuses_id`),
-	  CONSTRAINT `fk_orders_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-	  CONSTRAINT `fk_orders_addresses1` FOREIGN KEY (`addresses_id`) REFERENCES `addresses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-	  CONSTRAINT `fk_orders_order_statuses1` FOREIGN KEY (`order_statuses_id`) REFERENCES `order_statuses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet consectetuer adipiscing","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Trazodone HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("LevothyroxineSodium","Lorem ipsum dolor sit amet consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Nasonex","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Doxycycline Hyclate","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem ipsum","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Naproxen","Lorem ipsum dolor sit amet consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Metformin HCl","Lorem ipsum","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Tramadol HCl","Lorem ipsum dolor sit amet consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Nexium","Lorem ipsum dolor sit amet consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Ciprofloxacin HCl","Lorem ipsum dolor","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Paroxetine HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gabapentin","Lorem ipsum dolor","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Folic Acid","Lorem ipsum dolor sit","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Omeprazole (Rx)","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amoxicillin Trihydrate/Potassium Clavulanate","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Crestor","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Cymbalta","Lorem ipsum","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Metformin HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Fluconazole","Lorem ipsum dolor sit","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Crestor","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lovaza","Lorem ipsum dolor sit","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Zolpidem Tartrate","Lorem","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril/Hydrochlorothiazide","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Plavix","Lorem ipsum dolor","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Azithromycin","Lorem ipsum","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Atenolol","Lorem","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Azithromycin","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Alprazolam","Lorem ipsum dolor sit","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Ranitidine HCl","Lorem ipsum","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Simvastatin","Lorem ipsum dolor","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Endocet","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Methylprednisolone","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Fluoxetine HCl","Lorem ipsum dolor","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Azithromycin","Lorem","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Advair Diskus","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Zolpidem Tartrate","Lorem","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gianvi","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",9);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Proair HFA","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Glyburide","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lipitor","Lorem ipsum dolor sit","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Amlodipine Besylate","Lorem ipsum dolor","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Digoxin","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Penicillin VK","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sertraline HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Diovan","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",9);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Trazodone HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gianvi","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Diovan HCT","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",9);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Spiriva Handihaler","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",9);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("LevothyroxineSodium","Lorem ipsum dolor","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Actos","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Levothyroxine Sodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Warfarin Sodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Loestrin 24 Fe","Lorem ipsum dolor","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lantus","Lorem","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Simvastatin","Lorem ipsum dolor","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Triamterene/Hydrochlorothiazide","Lorem","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Klor-Con M20","Lorem ipsum dolor","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("LevothyroxineSodium","Lorem ipsum dolor sit","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Oxycodone HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",9);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lidoderm","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Gianvi","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Omeprazole (Rx)","Lorem ipsum","http://localhost/blah/blah",4);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Enalapril Maleate","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Vitamin D (Rx)","Lorem","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Tamsulosin HCl","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Crestor","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sertraline HCl","Lorem ipsum dolor","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Methylprednisolone","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Metformin HCl","Lorem ipsum","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Ibuprofen (Rx)","Lorem ipsum dolor sit","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Paroxetine HCl","Lorem ipsum dolor sit","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Alendronate Sodium","Lorem","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Cymbalta","Lorem ipsum","http://localhost/blah/blah",9);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Lisinopril","Lorem ipsum dolor","http://localhost/blah/blah",3);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Alprazolam","Lorem ipsum dolor sit amet,","http://localhost/blah/blah",1);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Advair Diskus","Lorem","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Promethazine HCl","Lorem","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Tamsulosin HCl","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",10);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sertraline HCl","Lorem ipsum dolor sit amet, consectetuer","http://localhost/blah/blah",2);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Oxycontin","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",5);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Warfarin Sodium","Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","http://localhost/blah/blah",8);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Carvedilol","Lorem ipsum dolor sit amet, consectetuer adipiscing","http://localhost/blah/blah",7);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Simvastatin","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",6);
+INSERT INTO `products` (`name`,`description`,`image`,`categories_id`) VALUES ("Sulfamethoxazole/Trimethoprim","Lorem ipsum dolor sit","http://localhost/blah/blah",9);
 
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (123,59,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (175,74,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (123,24,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (181,84,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (182,5,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (161,98,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (32,56,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (68,26,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (124,27,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (87,56,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (7,38,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (63,9,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (106,74,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (61,18,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (134,4,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (40,13,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (1,19,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (140,37,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (89,17,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (74,45,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (39,63,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (154,76,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (68,84,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (80,50,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (188,97,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (53,80,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (47,20,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (64,43,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (21,86,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (52,44,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (193,5,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (104,6,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (75,87,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (35,47,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (181,24,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (39,63,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (122,38,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (31,66,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (170,31,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (49,53,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (151,48,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (144,27,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (68,89,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (132,74,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (190,65,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (197,76,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (178,18,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (171,76,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (153,86,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (29,85,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (95,86,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (82,13,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (1,13,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (29,33,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (39,99,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (73,46,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (37,4,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (38,52,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (36,65,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (92,75,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (34,67,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (70,33,2);
 INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (14,7,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (192,12,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (40,84,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (35,13,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (197,21,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (158,103,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (166,94,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (187,1,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (29,101,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (62,74,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (64,58,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (188,28,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (14,34,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (135,83,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (121,16,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (171,7,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (71,90,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (44,21,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (62,53,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (183,17,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (130,57,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (65,104,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (93,8,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (70,22,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (186,17,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (37,17,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (125,55,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (10,62,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (190,91,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (39,17,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (20,84,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (62,61,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (18,31,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (104,45,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (171,54,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (54,72,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (165,23,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (139,102,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (181,55,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (34,43,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (134,85,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (169,87,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (159,46,1);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (4,4,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (144,6,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (24,84,3);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (26,12,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (110,49,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (47,81,2);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (21,32,4);
-INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (202,1,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (58,22,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (78,51,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (66,40,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (41,74,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (74,36,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (91,98,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (35,13,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (59,10,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (14,54,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (68,16,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (11,77,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (67,69,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (35,4,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (19,5,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (84,40,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (93,10,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (68,34,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (59,75,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (60,91,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (44,80,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (7,30,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (27,79,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (68,3,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (51,58,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (24,44,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (28,26,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (15,75,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (94,21,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (42,95,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (33,38,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (46,14,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (62,53,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (88,45,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (63,46,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (42,7,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (45,19,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (95,88,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (44,95,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (11,1,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (20,31,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (38,94,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (71,53,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (72,50,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (71,87,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (24,34,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (54,36,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (67,84,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (18,26,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (81,75,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (46,89,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (62,33,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (58,78,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (58,94,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (42,5,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (38,41,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (1,16,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (19,27,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (2,13,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (67,25,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (15,6,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (8,76,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (20,60,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (47,70,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (42,85,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (59,39,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (43,30,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (63,29,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (77,24,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (17,39,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (44,94,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (23,45,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (22,64,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (1,91,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (54,75,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (14,65,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (9,70,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (13,94,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (16,67,2);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (78,78,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (19,15,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (4,10,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (67,43,3);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (95,32,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (2,40,4);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (69,92,1);
+INSERT INTO `orders` (`users_id`,`addresses_id`,`order_statuses_id`) VALUES (53,68,3);
 
-/* dummy cart data */
-
-DROP TABLE IF EXISTS `carts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `carts` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `orders_id` int(11) NOT NULL,
-	  `products_id` int(11) NOT NULL,
-	  `qty` int(11) DEFAULT NULL,
-	  `flag` tinyint(1) DEFAULT NULL,
-	  PRIMARY KEY (`id`),
-	  KEY `fk_carts_orders1_idx` (`orders_id`),
-	  KEY `fk_carts_products1_idx` (`products_id`),
-	  CONSTRAINT `fk_carts_orders1` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-	  CONSTRAINT `fk_carts_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,129,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,16,3,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,139,5,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,3,3,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,83,5,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,137,9,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,10,4,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,14,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,182,2,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,148,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,173,8,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,74,8,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,100,6,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,82,2,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,181,9,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,39,10,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,168,9,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,125,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,31,5,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,189,5,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,123,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,85,2,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,49,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,86,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,53,1,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,97,10,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,13,6,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,23,10,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,89,4,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,13,10,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,41,5,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,67,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,47,1,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,23,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,3,2,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,53,1,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,17,2,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,11,1,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,7,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,71,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,43,6,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,73,3,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,5,3,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,5,8,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,3,6,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,23,2,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,11,1,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,7,9,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,43,9,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,43,7,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,43,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,17,8,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,41,10,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,2,3,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,19,5,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,1,3,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,23,10,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,3,8,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,31,10,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,79,8,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,41,1,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,71,7,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,5,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,13,8,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,47,10,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,61,7,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,3,1,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,67,5,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,19,6,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,47,1,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,29,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,2,3,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,89,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,97,4,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,71,5,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,89,6,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,89,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,17,5,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,1,5,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,41,1,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,67,7,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,47,10,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,13,6,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,79,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,5,8,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,59,4,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,59,8,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,2,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,47,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,7,4,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,11,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,67,7,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,11,2,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,43,7,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,43,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,47,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,13,7,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,41,10,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,67,9,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,5,5,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,5,7,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,1,7,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,73,6,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,29,6,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,3,8,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,31,2,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,1,9,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,41,2,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,97,9,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,41,10,0);
 INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,73,3,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,98,7,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,100,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,189,1,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,107,10,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,172,8,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,44,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,133,5,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,178,3,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,74,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,56,8,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,13,9,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,12,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,180,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,144,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,126,7,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,152,10,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,64,9,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,95,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,58,2,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,12,8,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,178,8,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,38,6,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,102,1,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,149,10,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,54,10,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,28,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,40,10,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,163,2,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,92,4,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,112,2,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,10,4,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,69,3,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,87,2,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,15,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,19,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,57,10,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,93,5,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,153,10,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,152,1,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,8,1,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,173,2,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,82,3,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,59,9,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,126,10,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,185,6,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,31,7,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,31,4,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,152,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,119,7,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,177,9,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,22,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,136,2,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,196,7,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (6,183,1,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,158,5,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,70,4,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,73,1,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,12,9,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,196,2,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,57,1,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,80,7,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,180,10,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,195,9,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,47,3,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,135,1,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (10,192,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (9,17,5,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (7,177,6,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (3,187,6,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,147,4,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,57,1,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (1,149,6,0);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,144,10,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,166,2,1);
-INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (8,103,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,47,6,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (5,73,10,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,7,8,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,7,3,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,71,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,89,4,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,3,2,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,83,9,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,29,8,1);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,3,6,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (2,11,8,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,1,1,0);
+INSERT INTO `carts` (`orders_id`,`products_id`,`qty`,`flag`) VALUES (4,17,8,1);
