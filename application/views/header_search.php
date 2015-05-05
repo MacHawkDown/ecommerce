@@ -28,19 +28,22 @@
         </script>
     </head>
     <body>
-        <div class="red u-full-width">
+        <div class="u-full-width">
             <div class="row">
                 <ul class="u-full-width">
                     <li><a class="firsttab" href="#">Dashboard</a></li>
                     <li><a class="tabs" href="#">Orders</a></li>
-                    <li><a class="tabs" href="#">Products</a></li>
-                    <li><a class="lasttab" href="#">Log Off</a></li>
+                    <li><a class="tabs" href="/products/show">Products</a></li>
+                    <li class="lasttab"><a href="#">Log Off</a></li>
                 </ul> 
             </div>
         </div>
-        <div class="search u-full-width">
+        <div class="search ten columns">
             <input id="sinput" type="text" value="" placeholder="search for id or first name or last_name"/>
             <input id="controller" type="hidden" value="get_orders"/>
         </div>
+         <div id="buttonOrcombo">
+                <?php echo $control ?>
+         </div>
     </body>
 </html>

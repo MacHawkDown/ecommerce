@@ -10,8 +10,6 @@
   <title>Code Igniter Project</title>
 
   <!-- core CSS -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="../assets/css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="../assets/css/jquery.modal.css">
   <style type="text/css">
     .modal a.close-modal[class*="icon-"] {
@@ -34,7 +32,17 @@
       -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
       box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
     }
-  </style>
+    .utility
+    {
+      position: absolute;
+      z-index: -1;
+    }    
+    .utility a
+    {
+      text-decoration: underline;
+      color: #1EAEDB;
+    }
+    </style>
   <!-- Custom styles for this template -->
   <!-- <link href="theme.css" rel="stylesheet"> -->
 
@@ -49,9 +57,9 @@
   <!-- .container is main centered wrapper -->
   <div class="container">
 
-    <a href="/products/new_product" class="button button-primary u-full-width" rel="ajax:modal">Add new Product</a>
+   <!--  <a href="/products/new_product" class="button button-primary u-full-width" rel="ajax:modal">Add new Product</a> -->
 
-    <table class='u-full-width'>
+    <table class='u-full-width utility'>
      <thead>
         <tr>
           <th>Picture</th>

@@ -37,6 +37,13 @@ a:hover{
 }
 
 .results{
-	width: 15%;
+	width: 20%;
 	margin-top: -10px;
+}
+.results li a {
+	font-size: 0.9em;
+}
+.red{
+	background-color: #8B0000;
+	color: white;
 }

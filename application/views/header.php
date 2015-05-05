@@ -17,8 +17,8 @@
               <ul class="listP u-full-width">
                   <li><a class="firsttab" href="#">Dashboard</a></li>
                   <li><a class="tabs" href="#">Orders</a></li>
-                  <li><a class="tabs" href="#">Products</a></li>
-                  <li><a class="lasttab" href="#">Log Off</a></li>
+                  <li><a class="tabs" href="/products/show">Products</a></li>
+                  <li class="lasttab"><a href="#">Log Off</a></li>
               </ul> 
         </div>
     </div>
