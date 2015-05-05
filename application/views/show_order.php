@@ -13,9 +13,6 @@
                 border: 1px solid black;
                 border-radius: 2px;
                 margin-top: 3px;
-                margin-left: 60px;
-
-
             }
 
             .custInfo {
@@ -35,18 +32,22 @@
                 font-weight:bold;
             }
 
-         th{
-             text-align: center;
-         }
-        
-        td{
-            text-align: center;
-        }
-        
-        li{
-            font-size:0.9em;
-        }
+             th{
+                 text-align: center;
+             }
             
+            td{
+                text-align: center;
+            }
+            
+            li{
+                font-size:0.9em;
+            }
+            .floaters
+            {
+                  margin: 10px auto;
+                  float: right;
+            } 
         </style>
         <head>
             <body>
@@ -70,7 +71,7 @@
                                 <li><span class="bold">zip</span><?php echo $output['zipcode']?></li>
                             </ul>
                         </div>
-                        <div class="box eight columns">
+                        <div class="box nine columns">
                             <table class="u-full-width">
                                 <tr class="header">
                                     <th>ID</th>
@@ -88,13 +89,13 @@
                                 </tr>
                             </table>
                         </div> 
-                        <p class=" billingInfo box four columns"><span class="bold">Status</span> : shipped</p>             
-                        <div class="billingInfo box four columns">
+                        <p class=" billingInfo box two columns"><span class="bold">Status</span> : shipped</p>             
+                        <div class="billingInfo box three columns floaters">
                             <p class="bold">Sub Total:</p>
                             <p class="bold">Shipping:</p>
                             <p class="bold">Total Price:</p>
                         </div>               
                     </div>
                 </div>
-            </body>
+        </body>
 </html>
