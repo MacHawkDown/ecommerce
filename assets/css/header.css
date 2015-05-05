@@ -1,0 +1,30 @@
+.row{
+	margin: 5px;
+}
+
+ul{
+	display: inline-block;
+	padding: 10px 0;
+}
+
+ul li {
+	display: inline-block;
+}
+
+.tabs{
+	margin-left: 40px;
+}
+
+.firsttab{
+	margin-left: 10px;
+}
+
+.lasttab{
+	margin-left: 1000px;
+}
+
+.tabs{
+	font-size: 1.1em;
+}
+
+

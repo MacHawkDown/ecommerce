@@ -11,7 +11,8 @@ class Logs extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('index');
+		//$this->load->view('index');
+		$this->load->view('header_search');
 	}
 		public function log_in()
 	{
