@@ -1,5 +1,5 @@
 <?php
-echo json_encode($output);
+//echo json_encode($output);
 ?>
 <!doctype html>
 <html>
@@ -11,30 +11,33 @@ echo json_encode($output);
             li{
                 list-style:none;
             }
+            .box{
+            border: 1px solid black;
+}
         </style>
         <head>
             <body>
                 <div class="container">
                     <div class="row">
-                        <div class="four columns">
-                            <p>Order ID: 1</p>
+                        <div class=" box four columns">
+                            <p>Order ID: <?php echo $output['id'] ?></p>
                             <ul>
                                 <li>Customer Shipping Info:</li>
-                                <li>name: bob</li>
-                                <li>address: 123 Sample Street</li>
-                                <li>State</li>
-                                <li>zip</li>
+                                <li>name: <?php echo $output['user']?></li>
+                                <li>address: <?php echo $output['address_1']?></li>
+                                <li>State<?php echo $output['state']?></li>
+                                <li>zip <?php echo $output['zipcode']?></li>
                             </ul>
                             <ul>
                                 <li>Customer Billing Info:</li>
-                                <li>name: bob</li>
-                                <li>address: 123 Sample Street</li>
-                                <li>City</li>
-                                <li>State</li>
-                                <li>zip</li>
+                                <li>name: <?php echo $output['user']?></li>
+                                <li>address: <?php echo $output['address_2']?></li>
+                                <li>City <?php echo $output['city']?></li>
+                                <li>State<?php echo $output['state']?></li>
+                                <li>zip <?php echo $output['zipcode']?></li>
                             </ul>
                         </div>
-                        <div class="eight columns">
+                        <div class="box eight columns">
                             <table class="u-full-width">
                                 <tr>
                                     <th>ID</th>
@@ -52,8 +55,8 @@ echo json_encode($output);
                                 </tr>
                             </table>
                         </div> 
-                        <p class="four columns">Status : shipped</p>             
-                        <ul class="four columns">
+                        <p class="box four columns">Status : shipped</p>             
+                        <ul class="box four columns">
                             <li>Sub Total:</li>
                             <li>Shipping</li>
                             <li>Total Price</li>
