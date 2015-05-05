@@ -28,7 +28,7 @@
         </script>
     </head>
     <body>
-        <div class="u-full-width">
+        <div class="red u-full-width">
             <div class="row">
                 <ul class="u-full-width">
                     <li><a class="firsttab" href="#">Dashboard</a></li>

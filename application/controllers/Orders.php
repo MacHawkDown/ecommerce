@@ -7,6 +7,7 @@
         public function show($id){
             $this->load->model('order');
             $output = $this->order->getOrder($id);
+            $this->load->view('header');
             $this->load->view('show_order', array('output' => $output));
         }
     }

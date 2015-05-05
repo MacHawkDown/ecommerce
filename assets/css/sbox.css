@@ -1,19 +1,14 @@
 ul{
 	border-radius: 5px;
-	background-color:#8B0000;
 	padding-top:5px;
 	padding-bottom:5px;
+	background-color:#8B0000;
 }
 
 li{
 	list-style:none;
 	padding: 5px;
 	margin: 2px;
-}
-
-li:hover{
-	border: 1px solid white;
-	border-radius: 5px;
 }
 
 li:active{
@@ -28,6 +23,11 @@ a{
 
 a:hover{
 	color:black;
+}
+
+.search{
+	margin-top: 0;
+	margin-left: 10px;
 }
 
 .search > input {

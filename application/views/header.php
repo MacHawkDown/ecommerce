@@ -14,11 +14,11 @@
 <body>
     <div class="u-full-width">
         <div class="row">
-              <ul class="u-full-width">
-                  <li><a class="tabs" href="#">Dashboard</a></li>
+              <ul class="listP u-full-width">
+                  <li><a class="firsttab" href="#">Dashboard</a></li>
                   <li><a class="tabs" href="#">Orders</a></li>
                   <li><a class="tabs" href="#">Products</a></li>
-                  <li><a class="tabs" href="#">Log Off</a></li>
+                  <li><a class="lasttab" href="#">Log Off</a></li>
               </ul> 
         </div>
     </div>

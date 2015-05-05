@@ -13,6 +13,19 @@ ul li {
 
 .tabs{
 	margin-left: 40px;
+	font-size: 1.1em;
+}
+
+a{
+	text-decoration:none;
+}
+
+a:active{
+	color: white;
+}
+
+a:hover{
+	color: black;
 }
 
 .firsttab{
@@ -22,9 +35,3 @@ ul li {
 .lasttab{
 	margin-left: 1000px;
 }
-
-.tabs{
-	font-size: 1.1em;
-}
-
-
