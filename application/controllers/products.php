@@ -21,8 +21,8 @@ class products extends CI_Controller {
 	public function show() 
 	{
 		// echo "show products";
-		$products = $this->Product->get_all();
-		$this->load->view('show/index', array('products' => $products));
+		// $products = $this->Product->get_all();
+		$this->load->view('show/index');
 	}
 
 	public function index_html() 
@@ -34,13 +34,12 @@ class products extends CI_Controller {
 	//---------------(C)reate !!!
 	public function new_product()
 	{
-		$this->load->view('/create/index');
+		$this->load->view('create/index');
 	}
 
 	public function create()
 	{
 		$this->Product->create_product($this->input->post());
-		// redirect('/products/show');
 	}
 	//--------------END (C)reate !!!
 
@@ -48,13 +47,12 @@ class products extends CI_Controller {
 	public function edit_product($id)
 	{
 		$edit_product = $this->Product->get_product($id);
-		$this->load->view('/edit/index', array('id' => $id, 'name' => $edit_product['name'], 'description' =>  $edit_product['description'] ));
+		$this->load->view('edit/index', array('id' => $id, 'name' => $edit_product['name'], 'description' =>  $edit_product['description'] ));
 	}
 
  	public function update($id)
 	{
 		$this->Product->update_product($id, $this->input->post());
-		// redirect('/products/show');
 	}
  	//---------------END (U)pdate !!!	
 
@@ -62,7 +60,12 @@ class products extends CI_Controller {
 	public function destroy_product($id)
 	{
 		$this->Product->delete_product($id);
-		redirect('/products/show');
+	}
+
+	public function delete($id)
+	{
+		$product = $this->Product->get_product($id);
+		$this->load->view('destroy/index', array('name' => $product['name'], 'id' => $id));
 	}
  	//---------------END (D)estroy !!!
 }
