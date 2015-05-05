@@ -1,0 +1,45 @@
+ul{
+	border-radius: 5px;
+	background-color:#8B0000;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+li{
+	list-style:none;
+	padding: 5px;
+	margin: 2px;
+}
+
+li:hover{
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+li:active{
+	background-color: white;
+}
+
+a{
+	text-decoration: none;
+	font-style:italic;
+	color: white;
+}
+
+a:hover{
+	color:black;
+}
+
+.search{
+	padding: 10px 5px;
+}
+
+.search > input {
+	width: 30%;
+	border-radius: 10px;
+}
+
+.results{
+	width: 15%;
+	margin-top: -10px;
+}
