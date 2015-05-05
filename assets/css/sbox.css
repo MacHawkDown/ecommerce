@@ -11,10 +11,6 @@ li{
 	margin: 2px;
 }
 
-li:active{
-	background-color: white;
-}
-
 a{
 	text-decoration: none;
 	font-style:italic;
@@ -22,6 +18,10 @@ a{
 }
 
 a:hover{
+	color:black;
+}
+
+a:visited{
 	color:black;
 }
 
