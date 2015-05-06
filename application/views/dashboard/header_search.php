@@ -15,7 +15,13 @@
 				if (e.shiftKey) {
 					return;
 				}
+
 				var target = $('#controller').attr('value');
+                if (this.value === ""){
+                    $('ul.results').remove();
+                    return;
+                }
+
 				$('ul.results').remove();
 				$.get("/" + target + "/" + this.value, function(data) {
 					if (data === "") {
@@ -42,7 +48,7 @@
 	</div>
 	<div class="search ten columns">
 		<input id="sinput" type="text" value="" placeholder="search for id or first name or last_name"/>
-		<input id="controller" type="hidden" value="search/search/get_orders"/>
+		<input id="controller" type="hidden" value="search/search/getOrders"/>
 	</div>
 	<div id="buttonOrcombo">
 		<?php echo $control ?>
