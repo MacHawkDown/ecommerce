@@ -40,7 +40,7 @@
 		<div class="row">
 			<ul class="u-full-width">
 				<li><a class="firsttab" href="/logs/logs">Dashboard</a></li>
-				<li><a class="tabs" href="/orders/orders">Orders</a></li>
+				<li><a class="tabs" href="/orders/orders/index">Orders</a></li>
 				<li><a class="tabs" href="/products/products/show">Products</a></li>
 				<li class="lasttab"><a href="#">Log Off</a></li>
 			</ul> 
@@ -48,7 +48,7 @@
 	</div>
 	<div class="search ten columns">
 		<input id="sinput" type="text" value="" placeholder="search for id or first name or last_name"/>
-		<input id="controller" type="hidden" value="search/search/getOrders"/>
+		<input id="controller" type="hidden" value="get_orders"/>
 	</div>
 	<div id="buttonOrcombo">
 		<?php echo $control ?>
