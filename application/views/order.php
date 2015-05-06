@@ -24,6 +24,17 @@
 			padding-left: 1em !important;
 			padding-right: 1em !important;
 		}
+        thead{
+            background-color:gray;
+            padding: 0 5px;
+        
+        }
+        thead tr th:first-child{
+            width: 10%;
+        }
+        tr:hover{
+            background-color:lightgray;
+        }
 	</style>
 </head>
 <script>
