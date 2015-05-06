@@ -10,33 +10,26 @@ class products extends CI_Controller {
 		//load model to retrieve data
 		$this->load->model('Product');
 	}
-	
-	//**---!!Follow RESTful Routing (C/R/U/D) for controller methods!!---**// 
-	public function index()
-	{
-		echo "Welcome to CodeIgniter. The default Controller is Product.php";
-		$this->load->view('index.php');
-	}
 
 	public function show() 
 	{
 		// echo "show products";
 		// $products = $this->Product->get_all();
-        $this->load->view('header_search', array( 'route' => 'get_products',
-            'control' => '<a href="/products/new_product" class="button button-primary" rel="ajax:modal">Add new Product</a>'));
+		$this->load->view('dashboard/header_search', array('control' => '<a href="/products/products/new_product" class="button button-primary" rel="ajax:modal">Add new Product</a>'));
 		$this->load->view('show/index');
+		$this->load->view('dashboard/show_products');
 	}
 
 	public function index_html() 
 	{
 		$data['products'] = $this->Product->get_all();
-		$this->load->view('show/partials/index.php', $data);
+		$this->load->view('dashboard/partials/show_products', $data);
 	}
 
 	//---------------(C)reate !!!
 	public function new_product()
 	{
-		$this->load->view('create/index');
+		$this->load->view('dashboard/create');
 	}
 
 	public function create()
@@ -49,7 +42,7 @@ class products extends CI_Controller {
 	public function edit_product($id)
 	{
 		$edit_product = $this->Product->get_product($id);
-		$this->load->view('edit/index', array('id' => $id, 'name' => $edit_product['name'], 'description' =>  $edit_product['description'] ));
+		$this->load->view('dashboard/edit', array('id' => $id, 'name' => $edit_product['name'], 'description' =>  $edit_product['description'] ));
 	}
 
  	public function update($id)
@@ -67,7 +60,7 @@ class products extends CI_Controller {
 	public function delete($id)
 	{
 		$product = $this->Product->get_product($id);
-		$this->load->view('destroy/index', array('name' => $product['name'], 'id' => $id));
+		$this->load->view('dashboard/destroy', array('name' => $product['name'], 'id' => $id));
 	}
  	//---------------END (D)estroy !!!
 }
