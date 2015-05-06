@@ -10,7 +10,7 @@
   <title>Code Igniter Project</title>
 
   <!-- core CSS -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/jquery.modal.css">
+  <link rel="stylesheet" type="text/css" href="/../../assets/css/jquery.modal.css">
   <style type="text/css">
     .modal a.close-modal[class*="icon-"] {
       top: -10px;
@@ -32,8 +32,7 @@
       -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
       box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
     }  
-    .utility a
-    {
+    .utility a {
       text-decoration: underline;
       color: #1EAEDB;
     }
@@ -77,11 +76,11 @@
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="../assets/js/jquery.modal.js"></script>
+  <script src="/../../assets/js/jquery.modal.js"></script>
    <script type="text/javascript">
     $(document).ready(function (){
         // we are getting all of the quotes so that when the user first requests the page the page will        // already be rendering the quotes
-        $.get('/products/index_html/', function(res) {
+        $.get('/products/products/index_html/', function(res) {
           // this url returns html string so we can dump that straight into div#quotes
           $('#prod_all').html(res);
         }); 
