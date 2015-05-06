@@ -58,7 +58,7 @@ class Order extends CI_Model {
 
 	public function getOrder($id) {
 		$query = join(" ", array("select addresses.zipcode, addresses.city, addresses.state, orders.id,GROUP_CONCAT(carts.qty) as cqties,",
-			"GROUP_CONCAT( products.name) as pnames,GROUP_CONCAT(products.price),", 
+			"GROUP_CONCAT(products.id) as 'pids', GROUP_CONCAT( products.name) as pnames,GROUP_CONCAT(products.price) as prices,", 
 			"CONCAT_WS(' ',first_name, last_name) as 'user',address_1,address_2 from orders",
 			"LEFT JOIN users ON users.id = orders.user_id LEFT JOIN carts ON carts.order_id = orders.id LEFT JOIN addresses",
 			"ON addresses.id = orders.address_id LEFT JOIN products ON carts.product_id = products.id group by orders.id",
