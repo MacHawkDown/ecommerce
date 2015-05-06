@@ -6,7 +6,6 @@
     <link href="/assets/css/normalize.css" rel="stylesheet">
     <link href="/assets/css/skeleton.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/sbox.css">
-    <!-- <link rel="stylesheet" href="/assets/css/header.css"> -->
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -19,14 +18,14 @@
 
             var target = $('#controller').attr('value');
             if (this.value === ""){
-                $('#results').remove();
+                $('ul#results').remove();
                 return;
             }
 
-            $('#results').remove();
+            $('ul#results').remove();
             $.get("/" + target + "/" + this.value, function(data) {
                 if (data === "") {
-                    $('#results').remove();
+                    $('ul#results').remove();
                 } else {
                     $('.search').append(data);
                 }
@@ -56,6 +55,3 @@
             <?php echo $control ?>
         </div>
     <?php } ?>
-</body>
-
-</html>
