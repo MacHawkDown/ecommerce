@@ -7,6 +7,7 @@
     <link href="/assets/css/skeleton.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/sbox.css">
     <!-- <link rel="stylesheet" href="/assets/css/header.css"> -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {

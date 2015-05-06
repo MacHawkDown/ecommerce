@@ -6,10 +6,18 @@
 	background-color:#8B0000;
 }
 
-#header li, #results li {
+#results li {
 	font-size: 0.9em;
 	list-style:none;
 	padding: 5px;
+	margin: 2px;
+	display: inline-block;
+}
+
+#header li{
+	font-size: 1.0em;
+	list-style:none;
+	padding: 10px;
 	margin: 2px;
 	display: inline-block;
 }
