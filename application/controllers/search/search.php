@@ -20,6 +20,16 @@ class Search extends CI_Controller {
             $this->load->view('dashboard/selections', array('selections' => $output));
         }
     }
+
+    public function getProducts($id){
+        $this->load->model("Product");
+        $output = $this->Product->getProductStartingWith($id);
+        if (count($output) == 0){ 
+            echo ""; 
+        }else{
+            $this->load->view('dashboard/product_selections',array('selections' => $output));
+        }   
+    }
 }
 
 //end of main controller

@@ -48,7 +48,9 @@
 	</div>
 	<div class="search ten columns">
 		<input id="sinput" type="text" value="" placeholder="search for id or first name or last_name"/>
-		<input id="controller" type="hidden" value="get_orders"/>
+		<!-- <input id="controller" type="hidden" value="get_orders"/> -->
+        <?php if (!isset($route)) { $route= "get_orders" ; } ?>
+        <input id="controller" type="hidden" value=<?php echo $route ?>>
 	</div>
 	<div id="buttonOrcombo">
 		<?php echo $control ?>
