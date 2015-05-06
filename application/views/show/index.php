@@ -11,6 +11,7 @@
 
   <!-- core CSS -->
   <link rel="stylesheet" type="text/css" href="../assets/css/jquery.modal.css">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <style type="text/css">
     .modal a.close-modal[class*="icon-"] {
       top: -10px;
