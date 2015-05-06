@@ -32,7 +32,7 @@
             <div class="row">
                 <ul class="u-full-width">
                     <li><a class="firsttab" href="/Logs/index">Dashboard</a></li>
-                    <li><a class="tabs" href="#">Orders</a></li>
+                    <li><a class="tabs" href="/orders/">Orders</a></li>
                     <li><a class="tabs" href="/products/show">Products</a></li>
                     <li class="lasttab"><a href="#">Log Off</a></li>
                 </ul> 

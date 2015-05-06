@@ -31,12 +31,7 @@
       -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
       -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
       box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
-    }
-    .utility
-    {
-      position: absolute;
-      z-index: -1;
-    }    
+    }  
     .utility a
     {
       text-decoration: underline;

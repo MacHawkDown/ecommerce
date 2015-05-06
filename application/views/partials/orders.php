@@ -1,4 +1,4 @@
-<table class="u-full-width">
+<table class="u-full-width ">
 		<thead>
 			<tr>
 				<th>Order ID</th>
@@ -18,7 +18,7 @@
 				<td><?= $order['date']; ?></td>
 				<td><?= $order['address']; ?></td>
 				<td><?= $order['total']; ?></td>
-				<td>
+				<td width="15%">
 					<form id="order_status" action="/dashboard/update" method="post">
 						<input type="hidden" name="order_id" value="<?=$order['id'];?>">
 						<input type="hidden" name="status">

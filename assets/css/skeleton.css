@@ -391,6 +391,14 @@ hr {
   display: table;
   clear: both; }
 
+/* Clearing search form results
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.utility
+{
+  position: absolute;
+  z-index: -1;
+}  
+
 
 /* Media Queries
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
