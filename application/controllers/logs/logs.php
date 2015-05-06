@@ -12,7 +12,7 @@ class Logs extends CI_Controller {
 	public function index()
 	{
 		//$this->load->view('index');
-		$this->load->view('dashboard/header/header_search', array('control' => ''));
+		$this->load->view('dashboard/header_search', array('control' => ''));
 	}
 		public function log_in()
 	{

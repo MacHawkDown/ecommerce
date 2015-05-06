@@ -16,7 +16,7 @@
 				<td><?= $order['id']; ?></td>
 				<td><?= $order['name']; ?></td>
 				<td><?= $order['date']; ?></td>
-				<td><?= $order['address']; ?></td>
+				<td width=30%><?= $order['address']; ?></td>
 				<td><?= $order['total']; ?></td>
 				<td width="15%">
 					<form id="order_status" action="/orders/orders/update" method="post">

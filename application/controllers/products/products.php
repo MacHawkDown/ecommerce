@@ -13,9 +13,8 @@ class products extends CI_Controller {
 
 	public function show() 
 	{
-		// echo "show products";
-		// $products = $this->Product->get_all();
-		$this->load->view('dashboard/header_search', array('control' => '<a href="/products/products/new_product" class="button button-primary" rel="ajax:modal">Add new Product</a>'));
+        $this->load->view('dashboard/header_search', array('route' => 'get_products',
+            'control' => '<a href="/products/products/new_product" class="button button-primary" rel="ajax:modal">Add new Product</a>'));
 		$this->load->view('dashboard/show_products');
 	}
 

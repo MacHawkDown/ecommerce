@@ -4,7 +4,6 @@ class Search extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-        $this->load->model('Order');
 		//$this->output->enable_profiler();
 	}
 
@@ -12,13 +11,24 @@ class Search extends CI_Controller {
         $this->load->view("dashboard/search");
 	}
 
-    public function get_orders($id = "") {
+    public function getOrders($id) {
+        $this->load->model('Order');
         $output = $this->Order->getOrderStartingWith($id);
         if (count($output) == 0){
             echo "";
         } else {
             $this->load->view('dashboard/selections', array('selections' => $output));
         }
+    }
+
+    public function getProducts($id){
+        $this->load->model("Product");
+        $output = $this->Product->getProductStartingWith($id);
+        if (count($output) == 0){ 
+            echo ""; 
+        }else{
+            $this->load->view('dashboard/product_selections',array('selections' => $output));
+        }   
     }
 }
 

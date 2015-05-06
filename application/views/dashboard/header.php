@@ -14,7 +14,7 @@
   <div class="u-full-width">
     <div class="row">
       <ul class="listP u-full-width">
-        <li><a class="firsttab" href="#">Dashboard</a></li>
+        <li><a class="firsttab" href="/logs/logs">Dashboard</a></li>
         <li><a class="tabs" href="/orders/orders/index">Orders</a></li>
         <li><a class="tabs" href="/products/products/show">Products</a></li>
         <li class="lasttab"><a href="#">Log Off</a></li>

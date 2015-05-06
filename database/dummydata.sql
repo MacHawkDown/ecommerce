@@ -100,6 +100,13 @@ ALTER TABLE `ecommerce`.`orders`
 ADD COLUMN `created_at` DATETIME NULL AFTER `order_status_id`,
 ADD COLUMN `updated_at` DATETIME NULL AFTER `created_at`;
 
+ALTER TABLE `ecommerce`.`orders` 
+DROP FOREIGN KEY `fk_orders_order_statuses1`;
+ALTER TABLE `ecommerce`.`orders` 
+DROP COLUMN `order_status_id`,
+ADD COLUMN `status` VARCHAR(45) NULL DEFAULT 'In-Process' AFTER `updated_at`;
+DROP INDEX `fk_orders_order_statuses1_idx` ;
+
 -- -----------------------------------------------------
 -- Table `ecommerce`.`categories`
 -- -----------------------------------------------------
@@ -137,6 +144,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 ALTER TABLE `ecommerce`.`products` 
 ADD COLUMN `price` FLOAT NOT NULL AFTER `category_id`;
+
+ALTER TABLE `ecommerce`.`products` 
+ADD COLUMN `qty` INT NOT NULL DEFAULT 10 AFTER `price`;
 
 -- -----------------------------------------------------
 -- Table `ecommerce`.`carts`
@@ -500,106 +510,81 @@ INSERT INTO `products` (`name`,`description`,`image`,`category_id`, `price`) VAL
 INSERT INTO `products` (`name`,`description`,`image`,`category_id`, `price`) VALUES ("Simvastatin","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sed","http://localhost/blah/blah",6,121.23);
 INSERT INTO `products` (`name`,`description`,`image`,`category_id`, `price`) VALUES ("Sulfamethoxazole/Trimethoprim","Lorem ipsum dolor sit","http://localhost/blah/blah",9,121.23);
 
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (29,85,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (95,86,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (82,13,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (1,13,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (29,33,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (39,99,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (73,46,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (37,4,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (38,52,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (36,65,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (92,75,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (34,67,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (70,33,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (14,7,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (58,22,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (78,51,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (66,40,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (41,74,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (74,36,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (91,98,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (35,13,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (59,10,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (14,54,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (68,16,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (11,77,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (67,69,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (35,4,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (19,5,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (84,40,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (93,10,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (68,34,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (59,75,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (60,91,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (44,80,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (7,30,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (27,79,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (68,3,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (51,58,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (24,44,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (28,26,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (15,75,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (94,21,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (42,95,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (33,38,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (46,14,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (62,53,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (88,45,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (63,46,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (42,7,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (45,19,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (95,88,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (44,95,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (11,1,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (20,31,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (38,94,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (71,53,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (72,50,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (71,87,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (24,34,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (54,36,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (67,84,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (18,26,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (81,75,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (46,89,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (62,33,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (58,78,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (58,94,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (42,5,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (38,41,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (1,16,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (19,27,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (2,13,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (67,25,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (15,6,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (8,76,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (20,60,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (47,70,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (42,85,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (59,39,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (43,30,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (63,29,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (77,24,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (17,39,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (44,94,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (23,45,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (22,64,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (1,91,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (54,75,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (14,65,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (9,70,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (13,94,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (16,67,2,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (78,78,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (19,15,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (4,10,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (67,43,3,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (95,32,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (2,40,4,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (69,92,1,now(), now());
-INSERT INTO `orders` (`user_id`,`address_id`,`order_status_id`, `created_at`, `updated_at`) VALUES (53,68,3,now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (29,85,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (95,86,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (82,13,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (1,13,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (29,33,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (39,99,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (73,46,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (37,4, 'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (38,52,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (36,65,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (92,75,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (34,67,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (70,33,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (58,22,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (78,51,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (66,40,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (41,74,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (74,36,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (91,98,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (35,13,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (59,10,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (14,54,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (68,16,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (11,77,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (67,69,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (35,4,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (19,5,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (84,40,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (93,10,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (68,34,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (59,75,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (60,91,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (44,80,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (51,58,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (24,44,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (28,26,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (15,75,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (94,21,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (42,95,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (33,38,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (46,14,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (62,53,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (88,45,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (63,46,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (1,16,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (19,27,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (2,13,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (67,25,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (15,6,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (8,76,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (20,60,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (47,70,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (42,85,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (59,39,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (43,30,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (63,29,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (77,24,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (17,39,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (44,94,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (23,45,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (22,64,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (1,91,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (54,75,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (14,65,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (9,70,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (13,94,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (16,67,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (78,78,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (19,15,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (4,10,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (67,43,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (95,32,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (2,40,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (69,92,'In-Process',now(), now());
+INSERT INTO `orders` (`user_id`,`address_id`,`status`, `created_at`, `updated_at`) VALUES (53,68,'In-Process',now(), now());
 
 INSERT INTO `carts` (`order_id`,`product_id`,`qty`,`flag`, `created_at`, `updated_at`) VALUES (1,97,6,0,now(), now());
 INSERT INTO `carts` (`order_id`,`product_id`,`qty`,`flag`, `created_at`, `updated_at`) VALUES (1,67,2,0,now(), now());

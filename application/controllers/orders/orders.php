@@ -16,7 +16,7 @@ class Orders extends CI_Controller {
 	public function show($id) {
 		$this->load->model('order');
 		$output = $this->order->getOrder($id);
-		$this->load->view('dashboard/header');
+		$this->load->view('dashboard/header_search', array("notdisplay" => true, "control" => ""));
 		$this->load->view('dashboard/show_order', array('output' => $output));
 	}
 
