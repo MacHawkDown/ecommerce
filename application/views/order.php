@@ -62,11 +62,11 @@
 	});
 </script>
 <body>
-<!-- <div class="container"> -->
-	<div id="content" class="utility u-full-width">
+ <div class="container">
+	<div id="content" class="content utility u-full-width">
 	
 	</div>
-<!-- </div> -->
+ </div>
 	
 </body>
 </html>

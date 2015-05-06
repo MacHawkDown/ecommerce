@@ -38,6 +38,9 @@
       text-decoration: underline;
       color: #1EAEDB;
     }
+    thead{
+        background-color:gray;
+    }
     tr{
         padding: 0 5px;
     }
@@ -60,7 +63,6 @@
   <div class="container">
 
    <!--  <a href="/products/new_product" class="button button-primary u-full-width" rel="ajax:modal">Add new Product</a> -->
-
     <table class='u-full-width utility'>
      <thead>
         <tr>
@@ -77,7 +79,7 @@
     </table>
     <!-- table -->
 
-  </div>
+ </div>
   <!-- .container -->
 
   <!-- JavaScript
