@@ -2,6 +2,7 @@
 
 $route['default_controller'] = "orders";
 $route['get_orders/(:any)'] = "/Search/getOrders/$1";
+$route['get_products/(:any)'] = "/Search/getProducts/$1";
 $route['Orders/show/(:any)'] = "/Orders/show/$1";
 $route['products'] = 'products';
 //$route['orders/show_orders/(:any)'] = "orders/show_orders/$1";
