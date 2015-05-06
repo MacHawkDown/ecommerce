@@ -1,6 +1,6 @@
   <!-- core CSS -->
-  <link rel="stylesheet" type="text/css" href="/../../assets/css/jquery.modal.css">
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/jquery.modal.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/animate.css">
   <style type="text/css">
     .modal a.close-modal[class*="icon-"] {
       top: -10px;
@@ -25,15 +25,6 @@
     .utility a {
       text-decoration: underline;
       color: #1EAEDB;
-    }
-    thead{
-        background-color:gray;
-    }
-    tr{
-        padding: 0 5px;
-    }
-    tr:hover{
-        background-color: lightgray;
     }
     </style>
 
@@ -64,7 +55,8 @@
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="/../../assets/js/jquery.modal.js"></script>
+  <script src="/assets/js/jquery.modal.js"></script>
+  <script src="/assets/js/jquery.noty.packaged.min.js"></script>
    <script type="text/javascript">
     $(document).ready(function (){
         // we are getting all of the quotes so that when the user first requests the page the page will        // already be rendering the quotes
@@ -72,6 +64,22 @@
           // this url returns html string so we can dump that straight into div#quotes
           $('#prod_all').html(res);
         }); 
+
+      var n = noty({
+          text        : 'working noty test',
+          type        : 'success',
+          dismissQueue: true,
+          layout      : 'top',
+          closeWith   : ['click'],
+          theme       : 'relax',
+          maxVisible  : 10,
+          animation   : {
+              open  : 'animated bounceInLeft',
+              close : 'animated bounceOutLeft',
+              easing: 'swing',
+              speed : 500
+          }
+      });
 
       $(document).on('click', 'a[rel="ajax:modal"]', function(event){
           $.ajax({
