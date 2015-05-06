@@ -1,5 +1,5 @@
 <div class="modal">
-  <form action='/products/create/' method='post'>
+  <form action='/products/products/create/' method='post'>
     <div class="row">
       <div class="twelve columns">
         <label for="">Name</label>
@@ -49,7 +49,7 @@
      $('form').submit(function() {
         $.modal.close(); //close modal
         $.post($(this).attr('action'), $(this).serialize(), function(res){
-          $.get('/products/index_html/', function(res) {
+          $.get('/products/products/index_html', function(res) {
             // this url returns html string so we can dump that straight into div#quotes
             $('#prod_all').html(res);
           }); 

@@ -19,7 +19,7 @@
 				<td><?= $order['address']; ?></td>
 				<td><?= $order['total']; ?></td>
 				<td width="15%">
-					<form id="order_status" action="/dashboard/update" method="post">
+					<form id="order_status" action="/orders/orders/update" method="post">
 						<input type="hidden" name="order_id" value="<?=$order['id'];?>">
 						<input type="hidden" name="status">
 						<select class="u-full-width" id="status" name="status">

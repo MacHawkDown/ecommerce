@@ -9,8 +9,8 @@ foreach ($products as $product)
     <td>100</td>
     <td>1000</td>
     <td>
-    	<a href="/products/edit_product/<?= $product['id'] ?>" rel="ajax:modal">edit</a> 
-    	<a href="/products/delete/<?= $product['id'] ?>" rel="ajax:modal">delete</a>
+    	<a href="/products/products/edit_product/<?= $product['id'] ?>" rel="ajax:modal">edit</a> 
+    	<a href="/products/products/delete/<?= $product['id'] ?>" rel="ajax:modal">delete</a>
     </td>
   </tr>
 <?php 

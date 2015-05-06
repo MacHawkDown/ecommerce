@@ -9,15 +9,15 @@ class Orders extends CI_Controller {
 
 	public function index() {
 		$data['orders'] = $this->Order->get_all_orders();
-		$this->load->view('header_search', array("control" => ""));
-		$this->load->view('order', $data);
+		$this->load->view('dashboard/header_search', array("control" => ""));
+		$this->load->view('dashboard/show_orders', $data);
 	}
 
 	public function show($id) {
 		$this->load->model('order');
 		$output = $this->order->getOrder($id);
-		$this->load->view('header');
-		$this->load->view('show_order', array('output' => $output));
+		$this->load->view('dashboard/header');
+		$this->load->view('dashboard/show_order', array('output' => $output));
 	}
 
 	public function show_orders($current_page, $search = null) {
@@ -46,7 +46,7 @@ class Orders extends CI_Controller {
 		}
 		$data['pages'] = $pages;
 		$data['current_page'] = $current_page;
-		$this->load->view('partials/orders', $data);
+		$this->load->view('dashboard/partials/show_orders', $data);
 	}
 
 	public function update($current_page){
