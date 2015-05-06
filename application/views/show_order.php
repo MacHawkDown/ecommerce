@@ -5,50 +5,7 @@
 <html>
     <head>
         <title>Orders Show</title>
-        <style type="text/css" >
-            li{
-                list-style:none;
-            }
-            .box{
-                border: 1px solid black;
-                border-radius: 2px;
-                margin-top: 3px;
-            }
-
-            .custInfo {
-                background-color:transparent;
-                padding: 5px;
-            }
-            .billingInfo{
-                background-color:transparent;
-                margin-top: 10px;
-                padding: 5px;
-            }
-            .header{
-                background-color:gray;
-            }
-
-            .bold{
-                font-weight:bold;
-            }
-
-             th{
-                 text-align: center;
-             }
-            
-            td{
-                text-align: center;
-            }
-            
-            li{
-                font-size:0.9em;
-            }
-            .floaters
-            {
-                  margin: 10px auto;
-                  float: right;
-            } 
-        </style>
+        <link href="/assets/css/show_order.css" rel="stylesheet" >
         <head>
             <body>
                 <div class="u-full-width">
