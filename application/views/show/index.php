@@ -38,6 +38,12 @@
       text-decoration: underline;
       color: #1EAEDB;
     }
+    tr{
+        padding: 0 5px;
+    }
+    tr:hover{
+        background-color: lightgray;
+    }
     </style>
   <!-- Custom styles for this template -->
   <!-- <link href="theme.css" rel="stylesheet"> -->
