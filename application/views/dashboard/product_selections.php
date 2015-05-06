@@ -1,4 +1,4 @@
-<ul class="results">
+<ul id="results" class="width-20">
 <?php
     foreach ($selections as $selection) {
         $name = $selection['name'];
