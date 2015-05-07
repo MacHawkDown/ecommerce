@@ -7,10 +7,18 @@
             return $this->db->query($query)->result_array();
         }
 
-        public function get_product($id)
-        {
-            $query = "SELECT products.id, products.image, products.name, products.description FROM products WHERE products.id = ?";
-            return $this->db->query($query, array($id))->row_array();
+       public function get_product($id) {
+        $query = "SELECT products.*, categories.name AS 'category_name', categories.id AS 'category_id' FROM products LEFT JOIN categories ON products.category_id = categories.id WHERE products.id = ?";
+        return $this->db->query($query, array($id))->row_array();
+        }
+
+        public function get_category($product) {
+            $query = "SELECT products.*, 
+                      categories.name AS 'category_name', 
+                      categories.id AS 'category_id' 
+                      FROM products LEFT JOIN categories ON products.category_id = categories.id 
+                      WHERE products.category_id = ? AND products.id != '{$product['id']}'";
+            return $this->db->query($query, array($product['category_id']))->result_array();
         }
 
         public function update_product($id,$post)
