@@ -1,15 +1,21 @@
 <?php 
     class Product extends CI_Model {
 
-        public function get_all()
-        {
-            $query = "SELECT products.id,products.image,products.name FROM products ORDER BY id DESC";
+        public function get_all_products($parameters = "ORDER BY id DESC") {
+            $query = "SELECT products.*, categories.name AS 'category_name', categories.id AS 'category_id' FROM products LEFT JOIN categories ON products.category_id = categories.id ".$parameters;
             return $this->db->query($query)->result_array();
         }
 
-       public function get_product($id) {
-        $query = "SELECT products.*, categories.name AS 'category_name', categories.id AS 'category_id' FROM products LEFT JOIN categories ON products.category_id = categories.id WHERE products.id = ?";
-        return $this->db->query($query, array($id))->row_array();
+        public function get_product($id) {
+            $query = "SELECT products.*, categories.name AS 'category_name', categories.id AS 'category_id' FROM products LEFT JOIN categories ON products.category_id = categories.id WHERE products.id = ?";
+            return $this->db->query($query, array($id))->row_array();
+        }
+
+        public function get_all_categories() {
+            $query = "SELECT categories.name AS 'category_name', categories.id AS 'category_id', COUNT(products.name) AS 'products_in_category' 
+                      FROM products LEFT JOIN categories ON products.category_id = categories.id 
+                      GROUP BY categories.id";
+            return $this->db->query($query)->result_array();
         }
 
         public function get_category($product) {
