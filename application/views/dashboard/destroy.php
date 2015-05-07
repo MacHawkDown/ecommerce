@@ -20,6 +20,21 @@
         $.get('/products/products/index_html/', function(res) {
           // this url returns html string so we can dump that straight into div#quotes
           $('#prod_all').html(res);
+            var n = noty({
+                  text        : 'Removed product.',
+                  type        : 'error',
+                  dismissQueue: true,
+                  layout      : 'topCenter',
+                  closeWith   : ['click'],
+                  theme       : 'relax',
+                  maxVisible  : 10,
+                  animation   : {
+                      open  : 'animated bounceInLeft',
+                      close : 'animated bounceOutLeft',
+                      easing: 'swing',
+                      speed : 500
+                  }
+              });
         }); 
       })
       return false;

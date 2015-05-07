@@ -65,22 +65,6 @@
           $('#prod_all').html(res);
         }); 
 
-      var n = noty({
-          text        : 'working noty test',
-          type        : 'success',
-          dismissQueue: true,
-          layout      : 'top',
-          closeWith   : ['click'],
-          theme       : 'relax',
-          maxVisible  : 10,
-          animation   : {
-              open  : 'animated bounceInLeft',
-              close : 'animated bounceOutLeft',
-              easing: 'swing',
-              speed : 500
-          }
-      });
-
       $(document).on('click', 'a[rel="ajax:modal"]', function(event){
           $.ajax({
 
