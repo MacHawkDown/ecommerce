@@ -1,18 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Logs extends CI_Controller {
+    class Logs extends CI_Controller {
 
-	public function __construct()
-	{
-		parent::__construct();
-		// $this->output->enable_profiler();
-		$this->load->model('Log');
-	}
+        public function __construct()
+        {
+            parent::__construct();
+            $this->load->model('Log');
+        }
 
 	public function index()
 	{
-		//$this->load->view('index');
-		$this->load->view('dashboard/header_search', array('control' => ''));
+		$this->load->view('users/index');
+		// $this->load->view('dashboard/header_search', array('control' => ''));
 	}
 		public function log_in()
 	{
@@ -37,10 +36,9 @@ class Logs extends CI_Controller {
 		}
 		else
 		{
-			$this->load->view('/logs/welcome', array('first_name'=>$log['first_name'],'last_name'=>$log['last_name'],'email'=>$log['email']));
+			redirect('/products/user_products/', array('first_name'=>$log['first_name'],'last_name'=>$log['last_name'],'email'=>$log['email']));
 		}
 	}
 
-}
-
-//end of main controller
+    }
+    //end of main controller
