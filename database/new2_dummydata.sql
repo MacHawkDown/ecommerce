@@ -89,7 +89,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'T-Shirts'),(2,'Shoes'),(3,'Headbands'),(4,'Basketballs');
+INSERT INTO `categories` VALUES (1,'T-Shirts'),(2,'Jerseys'),(3,'Hats');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-06 23:24:06
+-- Dump completed on 2015-05-07  1:20:28
