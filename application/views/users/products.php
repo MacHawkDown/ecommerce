@@ -131,7 +131,7 @@
 			height: 12em;
 		}
 		.category_link {
-			background-color: yellow;
+			
 		}
 		.pages {
 			display: block;
