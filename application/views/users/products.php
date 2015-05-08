@@ -3,6 +3,7 @@
 	<title></title>
 	<link rel="stylesheet" href="../assets/css/normalize.css">
 	<link rel="stylesheet" href="../assets/css/skeleton.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<style type="text/css">
 		.container {
 			min-width: 100% !important;
@@ -119,8 +120,46 @@
 		#botlist{
 			margin-left: 8%;
 		}
+		.product_img {
+			display: inline-block;
+			width: 10em;
+			height: 10em;
+		}
+		.product_box {
+			display: inline-block;
+			width: 12em;
+			height: 12em;
+		}
+		.category_link {
+			background-color: yellow;
+		}
+		.pages {
+			display: block;
+			text-align: center;
+			font-size: 2em;
+		}
 	</style>
+	<script>
+		$(document).ready(function() {
 
+			$(document).on('click', '.page_link', function() {
+				$("#form_current_page").val($(this).text());
+
+				$.post("/products/user_products/show_products", $('#page_info').serialize(), function(res) {
+					$('#all_products').html(res);
+				});
+				return false;
+			});
+
+			$(document).on('click', '.category_link', function() {
+				$("#form_category_id").val($(this).attr('data-id'));
+				$.post("/products/user_products/show_products", $("#page_info").serialize(), function(res) {
+					$('#all_products').html(res);
+				});
+				return false;
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -138,7 +177,9 @@
 						<li>Categories
 							<ul>
 							<? foreach($categories as $category) { ?>
-								<li><a href="/products/user_products/get_all_products/<?= $category['category_id']; ?>"><?= $category['category_name']." (".$category['products_in_category'].")" ?></a></li>
+								<li>
+									<a class="category_link" href="" data-id="<?=$category['category_id']?>"><?= $category['category_name']." (".$category['products_in_category'].")" ?></a>
+								</li>
 							<? } ?>
 							</ul>
 						</li>
@@ -167,32 +208,15 @@
 					</select>
 				</form>
 			</div>
-			<div id="row">
-				<? foreach($products as $product) { ?>
-					<div class="two columns">
-						<img src = "/assets/images/<?=$product['category_name'];?>/<?=$product['name'];?>/img1.png">
-						<h6 class="desc"><?= $product['price'];?></h6>
-						<p class="name"><?= $product['name'];?></p>
-					</div>
-				<? } ?>
+			<div id="all_products">
+				<? require('partials/products.php'); ?>
 			</div>
-			<div class="row">
-				<div class="twelve columns">
-					<ul id="botlist">
-						<li><a href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li><a href="">3</a></li>
-						<li><a href="">4</a></li>
-						<li><a href="">5</a></li>
-						<li><a href="">6</a></li>
-						<li><a href="">7</a></li>
-						<li><a href="">8</a></li>
-						<li><a href="">9</a></li>
-						<li><a href="">10</a></li>
-						<li><a href="">-></a></li>
-					</ul>
-				</div>
-			</div>
+		</div>
+		<div id="page_info_div">
+			<form id="page_info" action="/products/user_products/show_products" method="post">
+				<input name="current_page" id="form_current_page" type="hidden" value="">
+				<input name="category_id" id="form_category_id" type="hidden" value="">
+			</form>
 		</div>
 	</div>
 </body>
