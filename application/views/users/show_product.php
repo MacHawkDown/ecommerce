@@ -71,18 +71,22 @@
 		}
 		#bottom {
 			margin-top: 2em;
+			overflow: auto;
+			width: 100%;
 		}
-		.img-secondary, .like_product {
+		.img-secondary {
 			width: 10em;
 			height: 10em;
 		}
-		.like_product {
+		.like_product img {
+			width: 10em;
+			height: 10em;
 			border: 1px solid silver;
-			background-size: 100%; 
 		}
 		.desc {
 			margin: 0px !important;
 			padding: 0px !important;
+			width: 10em;
 		}
 		#bottom span {
 			color: rgb(120,120,120);
@@ -128,13 +132,16 @@
 			</div>
 		</div>
 		
-		<div id="bottom">
+		
 			<h4>Similar Items</h4>
-			<? foreach($category AS $product) { ?>
-				<div class="like_product" style="background-image: url('/assets/images/<?=$product['category_name'];?>/<?= $product['name']; ?>/img1.png')"></div>
-				<p class="desc"><?=$product['name'];?></p>
-				<p class="desc"><span><?=$product['category_name'];?></span></p>
-				<p class="desc"><span>$<?=$product['price'];?></span></p>
+			<div id="bottom" class="row">
+			<? foreach($similiar_products AS $product) { ?>
+				<div class="like_product three columns">
+					<img src="<?=$product['image']?>/img1.png" alt="">
+					<p class="desc"><?=$product['name'];?></p>
+					<p class="desc"><span><?=$product['category_name'];?></span></p>
+					<p class="desc"><span>$<?=$product['price'];?></span></p>
+				</div>
 			<? } ?>
 		</div>
 

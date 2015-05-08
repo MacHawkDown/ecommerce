@@ -27,6 +27,17 @@
             return $this->db->query($query, array($product['category_id']))->result_array();
         }
 
+        public function get_similiar_products($product) {
+            
+            preg_match("/\w+\s\w+/", $product['name'], $team_name);
+            $team_name = $team_name[0];
+            $query = "SELECT products.*, 
+                             categories.name AS 'category_name', 
+                             categories.id AS 'category_id' 
+                      FROM products LEFT JOIN categories ON products.category_id = categories.id WHERE products.name LIKE '%{$team_name}%'";
+            return $this->db->query($query)->result_array();
+        }
+
         public function update_product($id,$post)
         {
             $update_prod_name = $post['product'];
